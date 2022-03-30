@@ -1,25 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import NewsList from './components/newslist';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+    render() {
+        return (
+            <NewsList newsList={this.state.newsList} />
+        )
+    }
+
+    state = {
+        newsList: []
+    };
+
+    componentDidMount() {
+        fetch('https://hvpjaqxe10.execute-api.us-east-1.amazonaws.com/Prod/hello')
+            .then(res => res.json())
+            .then((data) => {
+                this.setState({ newsList: data })
+            })
+            .catch(console.log)
+    }
 }
 
 export default App;
